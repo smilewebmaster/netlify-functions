@@ -9,6 +9,7 @@
 [build.environment]
     # Change this path with the path to your repository
     GO_IMPORT_PATH = "github.com/bbg/netlify-functions"
+    GO111MODULE = "on"
 [[redirects]]
     from = "/api/*"
     to = "/.netlify/functions/:splat"
