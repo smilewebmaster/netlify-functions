@@ -11,7 +11,6 @@ build:
 	@echo "---"
 	@echo "Functions Build Completed"
 	@echo "---"
-	@SLEEP 5
 	@cd app && npm install && npm run build && npm run export
 	@echo "---"
 	@echo "Application build & export completed"
