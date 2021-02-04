@@ -3,23 +3,25 @@
 ##
 
 SERVICES_INDEX = "./services/cmd/"
+UCYAN=\033[4;36m
+NC=\033[0m
 
 build: functions application
 
 application:
-	@echo "---> Application build start"
+	@echo "${UCYAN} ---> Application build start"
+	@rm -rf app/.next
+	@rm -rf app/out
 	@cd app && npm install && npm run build && npm run export
-	@echo "---> Application build & export completed"
+	@echo "${UCYAN} ---> Application build & export completed"
 
 functions:
-	@echo "---> Functions build start"
+	@echo "${UCYAN} ---> Functions build start"
 	@rm -rf bin/*
-	@echo "---> Clear bin folder"
+	@echo "${UCYAN} ---> Clear bin folder"
 	@go get ./...
-	# function list
 	@go build -o bin/submit $(SERVICES_INDEX)/submit/main.go
-	# end
-	@echo "---> Functions Build Completed"
+	@echo "${UCYAN} ---> Functions Build Completed"
 
 #
 # -- END
