@@ -1,5 +1,5 @@
 //
-// -- Netlify Functions
+// -- Submit Handler
 //
 
 package submit
@@ -16,7 +16,7 @@ type response struct {
 	Status string `json:"status"`
 }
 
-func Handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+func ApiHandler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 	body := response{
 		ID: "ID",
 		UserID: "userID",
@@ -26,4 +26,6 @@ func Handler(req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse
 	return apiResponse(http.StatusOK, body)
 }
 
-
+//
+// -- END
+//

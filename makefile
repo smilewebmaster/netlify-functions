@@ -8,4 +8,6 @@ build:
 	@rm -rf bin/*
 	@go get ./...
 	@go build -o bin/submit $(SERVICES_INDEX)/submit/main.go
-	@go build -o bin/hello $(SERVICES_INDEX)/hello/main.go
+	@cd app
+	@npm run build
+	@npm run export
