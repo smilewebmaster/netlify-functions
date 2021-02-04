@@ -1,5 +1,11 @@
+##
+## -- Makefile
+##
+
+SERVICES_INDEX = "./services/cmd/"
+
 build:
-	mkdir -p functions
-	go get ./...
-	@go build -o functions/submit services/submit/main.go
-	@go build -o functions/hello services/hello/main.go
+	@rm -rf bin/*
+	@go get ./...
+	@go build -o bin/submit $(SERVICES_INDEX)/submit/main.go
+	@go build -o bin/hello $(SERVICES_INDEX)/hello/main.go
