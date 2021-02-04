@@ -1,3 +1,7 @@
+//
+// -- xMachine Submit
+//
+
 package main
 
 import (
@@ -6,5 +10,9 @@ import (
 )
 
 func main() {
-	lambda.Start(submit.Handler)
+	lambda.Start(submit.ApiHandler)
 }
+
+//
+// -- END
+//

@@ -1,3 +1,7 @@
+//
+// -- Api Response Function
+//
+
 package submit
 
 import (
@@ -12,3 +16,7 @@ func apiResponse(status int, body interface{}) (*events.APIGatewayProxyResponse,
 	resp.Body = string(stringBody)
 	return &resp, nil
 }
+
+//
+// -- END
+//

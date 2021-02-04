@@ -1,11 +1,19 @@
+#
+# -- Netlify Configurations
+#
+
 [build]
-  command = "make build"
-  functions = "bin"
-  publish = "app"
+    command = "make build"
+    functions = "bin"
+    publish = "app/out"
 [build.environment]
-  # Change this path with the path to your repository
-  GO_IMPORT_PATH = "github.com/bbg/netlify-functions"
+    # Change this path with the path to your repository
+    GO_IMPORT_PATH = "github.com/bbg/netlify-functions"
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+    from = "/api/*"
+    to = "/.netlify/functions/:splat"
+    status = 200
+
+#
+# -- END
+#
