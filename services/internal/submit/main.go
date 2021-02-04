@@ -48,7 +48,7 @@ func ApiHandler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRe
     }
     resp := events.APIGatewayProxyResponse{}
     resp.Headers = map[string]string{"Content-Type": "application/json"}
-    resp.Body = "Hello " + request.Body
+    resp.Body = request.Body.SiteUrl
     resp.StatusCode = 200
     return resp, nil
 }
