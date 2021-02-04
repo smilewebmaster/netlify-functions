@@ -1,35 +1,22 @@
 package main
 
 import (
-    "fmt"
-    "github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+	"net/http"
 )
 
-var (
-    ErrorFailedToUnmarshalRecord = "failed to unmarshal record"
-    ErrorFailedToFetchRecord     = "failed to fetch record"
-    ErrorInvalidUserData         = "invalid user data"
-    ErrorInvalidEmail            = "invalid email"
-    ErrorCouldNotMarshalItem     = "could not marshal item"
-    ErrorCouldNotDeleteItem      = "could not delete item"
-    ErrorCouldNotDynamoPutItem   = "could not dynamo put item error"
-    ErrorUserAlreadyExists       = "user.User already exists"
-    ErrorUserDoesNotExists       = "user.User does not exist"
-)
-
-type MyEvent struct {
-    Name string `json:"What is your name?"`
-    Age int     `json:"How old are you?"`
-}
-
-type MyResponse struct {
-    Message string `json:"Answer:"`
-}
-
-func HandleLambdaEvent(event MyEvent) (MyResponse, error) {
-    return MyResponse{Message: fmt.Sprintf("%s is %d years old!", event.Name, event.Age)}, nil
+func handler(request events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+	return &events.APIGatewayProxyResponse{
+		StatusCode:        200,
+		Headers:           map[string]string{"Content-Type": "text/plain"},
+		MultiValueHeaders: http.Header{"Set-Cookie": {"Ding", "Ping"}},
+		Body:              "Hello, World!",
+		IsBase64Encoded:   false,
+	}, nil
 }
 
 func main() {
-    lambda.Start(HandleLambdaEvent)
+	// Make the handler available for Remote Procedure Call by AWS Lambda
+	lambda.Start(handler)
 }
