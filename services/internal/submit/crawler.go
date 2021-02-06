@@ -5,7 +5,6 @@
 package submit
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 
@@ -30,11 +29,6 @@ type PageData struct {
 	} `pagser:"head"`
 }
 
-func toJson(v interface{}) string {
-	data, _ := json.MarshalIndent(v, "", "\t")
-	return string(data)
-}
-
 func fatal(err error) {
 	if err != nil {
 		log.Fatal(err)
@@ -42,13 +36,13 @@ func fatal(err error) {
 }
 
 func crawler() string {
-	resp, err := http.Get("https://medium.com/swlh/write-a-custom-reusable-hook-usefetch-1443d8d4e1e1")
+	response, err := http.Get("https://medium.com/swlh/write-a-custom-reusable-hook-usefetch-1443d8d4e1e1")
 	fatal(err)
-	defer resp.Body.Close()
-	p := pagser.New()
+	defer response.Body.Close()
+	page := pagser.New()
 	var data PageData
 	// parse html data
-	err = p.ParseReader(&data, resp.Body)
+	err = page.ParseReader(&data, response.Body)
 	// check error
 	fatal(err)
 	// print data
