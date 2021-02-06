@@ -26,7 +26,7 @@ type Response struct {
 type Result struct {
 	User      string    `json:"user"`
 	CreatedAt time.Time `json:"created_at"`
-	Data      string
+	Data      PageData  `json:"data"`
 }
 
 func toJson(v interface{}) string {

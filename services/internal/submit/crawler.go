@@ -35,7 +35,7 @@ func fatal(err error) {
 	}
 }
 
-func crawler() string {
+func crawler() PageData {
 	response, err := http.Get("https://medium.com/swlh/write-a-custom-reusable-hook-usefetch-1443d8d4e1e1")
 	fatal(err)
 	defer response.Body.Close()
@@ -46,7 +46,7 @@ func crawler() string {
 	// check error
 	fatal(err)
 	// print data
-	return toJson(data)
+	return data
 }
 
 //
