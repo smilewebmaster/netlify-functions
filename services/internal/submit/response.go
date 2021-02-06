@@ -5,8 +5,9 @@
 package submit
 
 import (
-	"net/http"
 	"encoding/json"
+	"net/http"
+
 	"github.com/aws/aws-lambda-go/events"
 )
 
@@ -20,10 +21,10 @@ func apiResponse(status int, body interface{}) (*events.APIGatewayProxyResponse,
 }
 
 func clientError(status int) (events.APIGatewayProxyResponse, error) {
-    return events.APIGatewayProxyResponse{
-        StatusCode: status,
-        Body: http.StatusText(status),
-    }, nil
+	return events.APIGatewayProxyResponse{
+		StatusCode: status,
+		Body:       http.StatusText(status),
+	}, nil
 }
 
 //
