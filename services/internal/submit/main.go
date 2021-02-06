@@ -20,18 +20,28 @@ var (
 type Response struct {
 	Status  int    `json:"status"`
 	Message string `json:"message"`
-	Result  Result
-}
-
-type Result struct {
-	User      string    `json:"user"`
-	CreatedAt time.Time `json:"created_at"`
-	Data      PageData  `json:"data"`
+	Result  struct {
+		User      string    `json:"user"`
+		CreatedAt time.Time `json:"created_at"`
+		Data      PageData  `json:"data"`
+	} `json:"result"`
 }
 
 func toJson(v interface{}) string {
 	data, _ := json.MarshalIndent(v, "", "\t")
 	return string(data)
+}
+
+func ApiResponse() Response {
+	// response struct
+	responseData := Response{}
+	responseData.Status = 200
+	responseData.Message = ""
+	responseData.Result.User = "bbg0x"
+	responseData.Result.CreatedAt = time.Now()
+	responseData.Result.Data = crawler("https://medium.com/swlh/write-a-custom-reusable-hook-usefetch-1443d8d4e1e1")
+	// end
+	return responseData
 }
 
 func ApiHandler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
@@ -41,20 +51,10 @@ func ApiHandler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRe
 	if request.HTTPMethod != "POST" {
 		return events.APIGatewayProxyResponse{}, ErrNameNotProvided
 	}
-	// struct
-	responseData := Response{
-		Status:  200,
-		Message: "",
-		Result: Result{
-			User:      "bbg0x",
-			CreatedAt: time.Time{},
-			Data:      crawler(),
-		},
-	}
 	// response
-	resp := events.APIGatewayProxyResponse{}
-	resp.Headers = map[string]string{"Content-Type": "application/json"}
-	resp.Body = toJson(responseData)
-	resp.StatusCode = 200
-	return resp, nil
+	response := events.APIGatewayProxyResponse{}
+	response.Headers = map[string]string{"Content-Type": "application/json"}
+	response.Body = toJson(ApiResponse())
+	response.StatusCode = 200
+	return response, nil
 }
